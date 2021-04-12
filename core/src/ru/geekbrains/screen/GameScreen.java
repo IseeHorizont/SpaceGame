@@ -18,7 +18,7 @@ public class GameScreen extends BaseScreen {
     private Background background;
     private TextureAtlas atlas;
     private Star stars[];
-    //private MyStarShip myStarShip;
+    private MyStarShip myStarShip;
 
     @Override
     public void show() {
@@ -30,7 +30,7 @@ public class GameScreen extends BaseScreen {
         for (int i = 0; i < STAR_COUNT; i++) {
             stars[i] = new Star(atlas);
         }
-        //myStarShip = new MyStarShip(atlas);
+        myStarShip = new MyStarShip(atlas);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class GameScreen extends BaseScreen {
         for (Star star : stars) {
             star.resize(worldBounds);
         }
-       // myStarShip.resize(worldBounds);
+        myStarShip.resize(worldBounds);
     }
 
     @Override
@@ -58,13 +58,13 @@ public class GameScreen extends BaseScreen {
 
     @Override
     public boolean touchDown(Vector2 touch, int pointer, int button) {
-        //myStarShip.touchDown(touch, pointer, button);
+        myStarShip.touchDown(touch, pointer, button);
         return false;
     }
 
     @Override
     public boolean touchUp(Vector2 touch, int pointer, int button) {
-        //myStarShip.touchUp(touch, pointer, button);
+        myStarShip.touchUp(touch, pointer, button);
         return false;
     }
 
@@ -72,7 +72,7 @@ public class GameScreen extends BaseScreen {
         for (Star star : stars) {
             star.update(delta);
         }
-        //myStarShip.update(delta);
+        myStarShip.update(delta);
     }
 
     private void draw() {
@@ -83,7 +83,7 @@ public class GameScreen extends BaseScreen {
         for (Star star : stars) {
             star.draw(batch);
         }
-        //myStarShip.draw(batch);
+        myStarShip.draw(batch);
         batch.end();
     }
 }
