@@ -68,6 +68,18 @@ public class GameScreen extends BaseScreen {
         return false;
     }
 
+    @Override
+    public boolean keyDown(int keycode) {
+        myStarShip.keyDown(keycode);
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        myStarShip.keyUp(keycode);
+        return false;
+    }
+
     private void update(float delta) {
         for (Star star : stars) {
             star.update(delta);
