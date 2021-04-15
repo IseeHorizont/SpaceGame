@@ -2,6 +2,7 @@ package ru.geekbrains.screen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -26,6 +27,8 @@ public class MenuScreen extends BaseScreen {
     private ExitButton exitButton;
     private PlayButton playButton;
 
+    private Music music;
+
     public MenuScreen(Game game) {
         this.game = game;
     }
@@ -44,6 +47,9 @@ public class MenuScreen extends BaseScreen {
         //spaceShip = new Ufo(ufo);
         exitButton = new ExitButton(atlas);
         playButton = new PlayButton(atlas, game);
+        music = Gdx.audio.newMusic(Gdx.files.internal("sounds/music.mp3"));
+        music.setLooping(true);
+        music.play();
     }
 
     @Override
@@ -70,6 +76,7 @@ public class MenuScreen extends BaseScreen {
         super.dispose();
         bg.dispose();
         atlas.dispose();
+        music.dispose();
     }
 
     @Override
