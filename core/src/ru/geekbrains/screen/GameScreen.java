@@ -25,6 +25,7 @@ public class GameScreen extends BaseScreen {
     private BulletPool bulletPool;
 
     private Music music;
+    private Sound laserSound;
 
     @Override
     public void show() {
@@ -32,12 +33,13 @@ public class GameScreen extends BaseScreen {
         bg = new Texture("textures/background.jpg");
         background = new Background(bg);
         atlas = new TextureAtlas("textures/mainAtlas.tpack");
+        laserSound = Gdx.audio.newSound(Gdx.files.internal("sounds/laser.wav"));
         stars = new Star[STAR_COUNT];
         for (int i = 0; i < STAR_COUNT; i++) {
             stars[i] = new Star(atlas);
         }
         bulletPool = new BulletPool();
-        myStarShip = new MyStarShip(atlas, bulletPool);
+        myStarShip = new MyStarShip(atlas, bulletPool, laserSound);
         music = Gdx.audio.newMusic(Gdx.files.internal("sounds/music.mp3"));
         music.setLooping(true);
         music.play();
@@ -66,6 +68,7 @@ public class GameScreen extends BaseScreen {
         bg.dispose();
         atlas.dispose();
         bulletPool.dispose();
+        laserSound.dispose();
         music.dispose();
     }
 

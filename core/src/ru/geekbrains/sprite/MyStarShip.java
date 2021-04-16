@@ -30,14 +30,17 @@ public class MyStarShip extends Sprite {
     private int rightPointer = INVALID_POINTER;
 
     private float reloadTimer;
+    private Sound sound;
 
-    public MyStarShip(TextureAtlas atlas, BulletPool bulletPool) {
+    public MyStarShip(TextureAtlas atlas, BulletPool bulletPool, Sound sound) {
         super(atlas.findRegion("main_ship"), 1, 2, 2);
         this.bulletPool = bulletPool;
+        this.sound = sound;
         this.bulletRegion = atlas.findRegion("bulletMainShip");
         bulletV = new Vector2(0, 0.5f);
         v = new Vector2();
         v0 = new Vector2(0.5f, 0);
+
     }
 
     @Override
@@ -160,5 +163,6 @@ public class MyStarShip extends Sprite {
     private void shoot() {
         Bullet bullet = bulletPool.obtain();
         bullet.set(this, bulletRegion, this.pos, bulletV, worldBounds, 1, 0.01f);
+        sound.play();
     }
 }
