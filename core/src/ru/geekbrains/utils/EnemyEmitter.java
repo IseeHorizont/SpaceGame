@@ -11,7 +11,7 @@ import ru.geekbrains.sprite.EnemyShip;
 
 public class EnemyEmitter {
 
-    private static final float GENERETE_INTERVAL = 4f;
+    private static final float GENERATE_INTERVAL = 4f;
 
     private static final float ENEMY_SMALL_HEIGHT = 0.1f;
     private static final float ENEMY_SMALL_BULLET_HEIGHT = 0.01f;
@@ -34,24 +34,26 @@ public class EnemyEmitter {
     private static final float ENEMY_BIG_RELOAD_INTERVAL = 1f;
     private static final int ENEMY_BIG_HP = 10;
 
-    private Rect worldBounds;
-    private EnemyPool enemyPool;
-    private float generateTimer;
-    private TextureRegion[] enemySmallRegions;
-    private TextureRegion[] enemyMediumRegions;
-    private TextureRegion[] enemyBigRegions;
-    private TextureRegion bulletRegion;
+    private final Rect worldBounds;
+    private final EnemyPool enemyPool;
 
-    private Vector2 enemySmallV;
-    private Vector2 enemyMediumV;
-    private Vector2 enemyBigV;
+    private final TextureRegion[] enemySmallRegions;
+    private final TextureRegion[] enemyMediumRegions;
+    private final TextureRegion[] enemyBigRegions;
+    private final TextureRegion bulletRegion;
+
+    private final Vector2 enemySmallV;
+    private final Vector2 enemyMediumV;
+    private final Vector2 enemyBigV;
+
+    private float generateTimer;
 
     public EnemyEmitter(Rect worldBounds, EnemyPool enemyPool, TextureAtlas atlas) {
         this.worldBounds = worldBounds;
         this.enemyPool = enemyPool;
         enemySmallV = new Vector2(0, -0.2f);
         enemyMediumV = new Vector2(0, -0.03f);
-        enemyBigV = new Vector2(0, -0.05f);
+        enemyBigV = new Vector2(0, -0.005f);
         bulletRegion = atlas.findRegion("bulletEnemy");
         enemySmallRegions = Regions.split(atlas.findRegion("enemy0"), 1, 2, 2);
         enemyMediumRegions = Regions.split(atlas.findRegion("enemy1"), 1, 2, 2);
@@ -60,30 +62,51 @@ public class EnemyEmitter {
 
     public void generate(float delta) {
         generateTimer += delta;
-        if (generateTimer >= GENERETE_INTERVAL) {
+        if (generateTimer >= GENERATE_INTERVAL) {
             generateTimer = 0;
             EnemyShip enemyShip = enemyPool.obtain();
-            float type = (float)Math.random();
+            float type = (float) Math.random();
             if (type < 0.5f) {
-                enemyShip.set(enemySmallRegions, enemySmallV, bulletRegion, ENEMY_SMALL_BULLET_HEIGHT,
-                        ENEMY_SMALL_BULLET_VY, ENEMY_SMALL_BULLET_DAMAGE, ENEMY_SMALL_RELOAD_INTERVAL,
-                        ENEMY_SMALL_HEIGHT, ENEMY_SMALL_HP);
+                enemyShip.set(
+                        enemySmallRegions,
+                        enemySmallV,
+                        bulletRegion,
+                        ENEMY_SMALL_BULLET_HEIGHT,
+                        ENEMY_SMALL_BULLET_VY,
+                        ENEMY_SMALL_BULLET_DAMAGE,
+                        ENEMY_SMALL_RELOAD_INTERVAL,
+                        ENEMY_SMALL_HEIGHT,
+                        ENEMY_SMALL_HP
+                );
             } else if (type < 0.8f) {
-                //TODO medium ship
-                enemyShip.set(enemyMediumRegions, enemyMediumV, bulletRegion, ENEMY_MEDIUM_BULLET_HEIGHT,
-                        ENEMY_MEDIUM_BULLET_VY, ENEMY_MEDIUM_BULLET_DAMAGE, ENEMY_MEDIUM_RELOAD_INTERVAL,
-                        ENEMY_MEDIUM_HEIGHT, ENEMY_MEDIUM_HP);
-
+                enemyShip.set(
+                        enemyMediumRegions,
+                        enemyMediumV,
+                        bulletRegion,
+                        ENEMY_MEDIUM_BULLET_HEIGHT,
+                        ENEMY_MEDIUM_BULLET_VY,
+                        ENEMY_MEDIUM_BULLET_DAMAGE,
+                        ENEMY_MEDIUM_RELOAD_INTERVAL,
+                        ENEMY_MEDIUM_HEIGHT,
+                        ENEMY_MEDIUM_HP
+                );
             } else {
-                //TODO big ship
-                enemyShip.set(enemyBigRegions, enemyBigV, bulletRegion, ENEMY_BIG_BULLET_HEIGHT,
-                        ENEMY_BIG_BULLET_VY, ENEMY_BIG_BULLET_DAMAGE, ENEMY_BIG_RELOAD_INTERVAL,
-                        ENEMY_BIG_HEIGHT, ENEMY_BIG_HP);
+                enemyShip.set(
+                        enemyBigRegions,
+                        enemyBigV,
+                        bulletRegion,
+                        ENEMY_BIG_BULLET_HEIGHT,
+                        ENEMY_BIG_BULLET_VY,
+                        ENEMY_BIG_BULLET_DAMAGE,
+                        ENEMY_BIG_RELOAD_INTERVAL,
+                        ENEMY_BIG_HEIGHT,
+                        ENEMY_BIG_HP
+                );
             }
-
             enemyShip.pos.x = Rnd.nextFloat(
                     worldBounds.getLeft() + enemyShip.getHalfWidth(),
-                    worldBounds.getRight() - enemyShip.getHalfWidth());
+                    worldBounds.getRight() - enemyShip.getHalfWidth()
+            );
             enemyShip.setBottom(worldBounds.getTop());
         }
     }
