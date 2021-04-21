@@ -13,7 +13,7 @@ public class MainShip extends Ship {
 
     private static final float HEIGHT = 0.15f;
     private static final float PADDING = 0.05f;
-    private static final int HP = 1;
+    private static final int HP = 100;
     private static final int INVALID_POINTER = -1;
 
     private boolean pressedLeft;
