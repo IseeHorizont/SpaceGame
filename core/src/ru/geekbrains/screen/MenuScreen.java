@@ -44,7 +44,6 @@ public class MenuScreen extends BaseScreen {
         for (int i = 0; i < STAR_COUNT; i++) {
             stars[i] = new Star(atlas);
         }
-        //spaceShip = new Ufo(ufo);
         exitButton = new ExitButton(atlas);
         playButton = new PlayButton(atlas, game);
         music = Gdx.audio.newMusic(Gdx.files.internal("sounds/music.mp3"));
@@ -59,7 +58,6 @@ public class MenuScreen extends BaseScreen {
         for (Star star : stars) {
             star.resize(worldBounds);
         }
-        //spaceShip.resize(worldBounds);
         exitButton.resize(worldBounds);
         playButton.resize(worldBounds);
     }
@@ -81,7 +79,6 @@ public class MenuScreen extends BaseScreen {
 
     @Override
     public boolean touchUp(Vector2 touch, int pointer, int button) {
-        //spaceShip.touchUp(touch, pointer, button);
         exitButton.touchUp(touch, pointer, button);
         playButton.touchUp(touch, pointer, button);
         return false;
@@ -95,7 +92,6 @@ public class MenuScreen extends BaseScreen {
     }
 
     private void update(float delta) {
-        //spaceShip.update(delta);
         for (Star star : stars) {
             star.update(delta);
         }
@@ -109,7 +105,6 @@ public class MenuScreen extends BaseScreen {
         for (Star star : stars) {
             star.draw(batch);
         }
-        //spaceShip.draw(batch);
         exitButton.draw(batch);
         playButton.draw(batch);
         batch.end();
